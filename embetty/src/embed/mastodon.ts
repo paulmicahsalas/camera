@@ -3,11 +3,11 @@ import { observable, webcomponent } from '../decorators'
 import { Embed } from '../embed'
 import { parseHostname } from '../util'
 
-const CSS =
+let CSS =
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
   require('!css-loader!postcss-loader!sass-loader!./mastodon.scss').default.toString() as string
 
-const template = `
+let template = `
     <style>${CSS}</style>
       <header>
         <img src="{{profileImageUrl}}" />
@@ -73,7 +73,7 @@ export class Mastodon extends Embed<MastodonStatusData> {
   }
 
   get status(): string {
-    const status = this.getAttribute('status')
+    let status = this.getAttribute('status')
 
     if (!status) {
       throw new Error('Invalid status')
@@ -83,7 +83,7 @@ export class Mastodon extends Embed<MastodonStatusData> {
   }
 
   // get mastodonInstanceUrl() {
-  //   const [, host] =
+  //   let [, host] =
   //     this._data?.url.match(/^https?:\/\/([^/]+)\/@[^/]+\/\d+$/) || []
 
   //   return host
@@ -110,7 +110,7 @@ export class Mastodon extends Embed<MastodonStatusData> {
   }
 
   get createdAt(): Date {
-    const data = this._data
+    let data = this._data
     this.assertData(data)
 
     return new Date(data.created_at)
@@ -159,7 +159,7 @@ export class Mastodon extends Embed<MastodonStatusData> {
   }
 
   get hasMedia() {
-    const data = this._data
+    let data = this._data
     this.assertData(data)
     return data.media_attachments.length > 0
   }
@@ -169,7 +169,7 @@ export class Mastodon extends Embed<MastodonStatusData> {
   }
 
   get linkHostname() {
-    const url = this.link
+    let url = this.link
     return url ? parseHostname(url) : undefined
   }
 
@@ -180,7 +180,7 @@ export class Mastodon extends Embed<MastodonStatusData> {
   override async becomesVisible() {
     await super.becomesVisible()
 
-    const linkImage = this.shadowRoot!.querySelector('#links img')
+    let linkImage = this.shadowRoot!.querySelector('#links img')
     if (linkImage) {
       linkImage.addEventListener('error', () => {
         linkImage.remove()
