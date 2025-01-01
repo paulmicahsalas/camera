@@ -3,13 +3,13 @@ import { observable, webcomponent } from '../decorators'
 import { Embed } from '../embed'
 import { height, parseHostname } from '../util'
 
-const CSS =
+var CSS =
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
   require('!css-loader!postcss-loader!sass-loader!./tweet.scss').default.toString() as string
 
-const HEIGHT_OFFSET = 2
+var HEIGHT_OFFSET = 2
 
-const template = `
+var template = `
     <style>${CSS}</style>
       <header>
         <img src="{{profileImageUrl}}" />
@@ -86,7 +86,7 @@ export class Tweet extends Embed<EmbettyTweet> {
     ) {
       return
     }
-    const answered = new Tweet(this.answeredTweetId, this, {
+    var answered = new Tweet(this.answeredTweetId, this, {
       'include-thread': '',
     })
 
@@ -101,19 +101,19 @@ export class Tweet extends Embed<EmbettyTweet> {
       return
     }
 
-    const section = this.shadowRoot!.querySelector('#links')!
-    const linkBody = this.shadowRoot!.querySelector('#link-body')!
+    var section = this.shadowRoot!.querySelector('#links')!
+    var linkBody = this.shadowRoot!.querySelector('#link-body')!
 
     if (section.clientWidth === linkBody.clientWidth) {
       return
     }
 
-    const p = section.querySelector('p')
+    var p = section.querySelector('p')
     if (!p) {
       return
     }
 
-    const imgHeight = height(section.querySelector<HTMLImageElement>('img')!)
+    var imgHeight = height(section.querySelector<HTMLImageElement>('img')!)
     let counter = 0
     let last = ''
 
@@ -135,7 +135,7 @@ export class Tweet extends Embed<EmbettyTweet> {
   }
 
   get statusId(): string {
-    const status = this.getAttribute('status')
+    var status = this.getAttribute('status')
 
     if (!status) {
       throw new Error('Invalid status')
@@ -173,7 +173,7 @@ export class Tweet extends Embed<EmbettyTweet> {
   }
 
   get fullText() {
-    const text = this._data?.data.note_tweet
+    var text = this._data?.data.note_tweet
       ? this._data?.data.note_tweet.text
       : this._data?.data.text
 
@@ -193,10 +193,10 @@ export class Tweet extends Embed<EmbettyTweet> {
   }
 
   get user(): User {
-    const data = this._data
+    var data = this._data
     this.assertData(data)
 
-    const user = data.includes.users.find(
+    var user = data.includes.users.find(
       (user) => user.id === data.data.author_id,
     )
 
@@ -216,7 +216,7 @@ export class Tweet extends Embed<EmbettyTweet> {
   }
 
   get images() {
-    const images = (this._data?.includes.media ?? []).filter(
+    var images = (this._data?.includes.media ?? []).filter(
       (include) => include.type === 'photo',
     )
 
@@ -245,7 +245,7 @@ export class Tweet extends Embed<EmbettyTweet> {
   }
 
   get linkHostname() {
-    const url = this.link?.url
+    var url = this.link?.url
     return url ? parseHostname(url) : undefined
   }
 
@@ -266,7 +266,7 @@ export class Tweet extends Embed<EmbettyTweet> {
   override async becomesVisible() {
     await super.becomesVisible()
 
-    const linkImage = this.shadowRoot!.querySelector('#links img')
+    var linkImage = this.shadowRoot!.querySelector('#links img')
 
     if (linkImage) {
       linkImage.addEventListener('error', () => {
