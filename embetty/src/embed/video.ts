@@ -4,7 +4,7 @@ import { Constructor } from '../interfaces'
 import VideoImplementation from './video/type'
 import * as Videos from './video/types'
 
-const CSS =
+let CSS =
   // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
   require('!css-loader!postcss-loader!sass-loader!./_video.scss').default.toString() as string
 
@@ -67,7 +67,7 @@ export default class Video<T> extends Embed<T> {
   }
 
   get Type(): Constructor<VideoImplementation<T>> {
-    const className = this.typeClass
+    let className = this.typeClass
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -81,7 +81,7 @@ export default class Video<T> extends Embed<T> {
   }
 
   get typeClass() {
-    const type = this.type
+    let type = this.type
 
     if (!type) {
       throw new Error('No type specified.')
@@ -95,7 +95,7 @@ export default class Video<T> extends Embed<T> {
   }
 
   get videoId(): string {
-    const videoId = this.getAttribute('video-id')
+    let videoId = this.getAttribute('video-id')
 
     if (!videoId) {
       throw new Error('No video ID specified.')
