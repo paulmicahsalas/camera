@@ -23,7 +23,7 @@ describe(`${Embed.name}`, () => {
   })
 
   it('should be instantiable', () => {
-    const myEmbed = new MyEmbed('foo', { embetty })
+    var myEmbed = new MyEmbed('foo', { embetty })
 
     expect(myEmbed).toBeDefined()
     expect(myEmbed.id).toBe('foo')
