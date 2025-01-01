@@ -7,7 +7,7 @@ import { URL } from 'url'
 import { HttpException, NotFoundException } from './exceptions'
 import routes from './routes'
 
-export const app: Express = express()
+export var app: Express = express()
 
 nunjucks
   .configure('views', {
@@ -15,8 +15,8 @@ nunjucks
     express: app,
   })
   .addGlobal('urlFor', (path: string) => {
-    const urlBase = process.env.URL_BASE || 'http://localhost:3000'
-    const url = new URL(path, urlBase)
+    var urlBase = process.env.URL_BASE || 'http://localhost:3000'
+    var url = new URL(path, urlBase)
     return url.toString().replace(/\/$/, '')
   })
 
