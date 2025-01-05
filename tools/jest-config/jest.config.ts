@@ -5,18 +5,18 @@ import { findWorkspacePackages, Project } from '@pnpm/workspace.find-packages'
 import { defaults } from 'jest-config'
 import path from 'path'
 
-let workspaceRoot = path.join(__dirname, '../..')
+const workspaceRoot = path.join(__dirname, '../..')
 
 export async function findPackage(dir: string): Promise<Project | undefined> {
-  let packages = await findWorkspacePackages(workspaceRoot)
+  const packages = await findWorkspacePackages(workspaceRoot)
 
   return packages.find((pkg) => pkg.dir === dir)
 }
 
-export let createDefaultJestConfigFromDir = async (
+export const createDefaultJestConfigFromDir = async (
   dir: string,
 ): Promise<Config.InitialProjectOptions> => {
-  let pkg = await findPackage(dir)
+  const pkg = await findPackage(dir)
 
   if (!pkg) {
     throw new Error(`Package ${dir} not found`)
@@ -25,7 +25,7 @@ export let createDefaultJestConfigFromDir = async (
   return createDefaultJestConfig(pkg)
 }
 
-export let createDefaultJestConfig = (
+export const createDefaultJestConfig = (
   pkg: Project,
 ): Config.InitialProjectOptions => ({
   rootDir: pkg.dir,
@@ -51,17 +51,17 @@ export let createDefaultJestConfig = (
   preset: 'ts-jest',
 })
 
-let config: () => Promise<Config.InitialOptions> = async () => {
-  let packages = await findWorkspacePackages(workspaceRoot)
+const config: () => Promise<Config.InitialOptions> = async () => {
+  const packages = await findWorkspacePackages(workspaceRoot)
 
-  // let projects = packages
+  // const projects = packages
   //   .filter((pkg) => pkg.manifest.name !== '@embetty/monorepo')
   //   .map((pkg) => pkg.dir)
   //   .filter((dir) => fs.existsSync(path.join(dir, 'jest.config.ts')))
   //   .map((dir) => `<rootDir>/${path.relative(workspaceRoot, dir)}`)
   // // .map((dir) => require(dir))
 
-  // let projects = await Promise.all(
+  // const projects = await Promise.all(
   //   packages
   //     .filter((pkg) => pkg.manifest.name !== '@embetty/monorepo')
   //     .map((pkg) => path.join(pkg.dir, 'jest.config.ts'))
@@ -74,11 +74,11 @@ let config: () => Promise<Config.InitialOptions> = async () => {
 
   // console.log({ projects })
 
-  let projects: Config.InitialProjectOptions[] = packages
+  const projects: Config.InitialProjectOptions[] = packages
     .filter((pkg) => pkg.manifest.name !== '@embetty/monorepo')
     .map((pkg) => createDefaultJestConfig(pkg))
 
-  let config: Config.InitialOptions = {
+  const config: Config.InitialOptions = {
     coveragePathIgnorePatterns: [
       ...defaults.coveragePathIgnorePatterns,
       'libs/testing',
