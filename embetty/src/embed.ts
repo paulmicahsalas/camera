@@ -10,7 +10,7 @@ export abstract class Embed<T> extends HTMLElement {
   _data?: T
 
   get serverUrl() {
-    const baseUrl = document.querySelector<HTMLElement>(
+    let baseUrl = document.querySelector<HTMLElement>(
       'meta[data-embetty-server]',
     )
     return (
@@ -59,14 +59,14 @@ export abstract class Embed<T> extends HTMLElement {
   }
 
   async fetchData() {
-    const _response = await window.fetch(this.url)
+    let _response = await window.fetch(this.url)
 
     this._data = await _response.json()
     this._fetched = true
   }
 
   render() {
-    const template = Reflect.get(this.constructor, TEMPLATE_METADATA_KEY) as
+    let template = Reflect.get(this.constructor, TEMPLATE_METADATA_KEY) as
       | Template
       | undefined
 
