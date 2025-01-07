@@ -6,8 +6,8 @@ export function computedStyle(
 }
 
 export function marginHeight(element: Element) {
-  const top = Number.parseFloat(computedStyle(element, 'marginTop') as string)
-  const bottom = Number.parseFloat(
+  let top = Number.parseFloat(computedStyle(element, 'marginTop') as string)
+  let bottom = Number.parseFloat(
     computedStyle(element, 'marginBottom') as string,
   )
   return top + bottom
@@ -21,14 +21,14 @@ export function height(element: Element) {
 }
 
 export function parseHostname(url: string) {
-  const a = document.createElement('a')
+  let a = document.createElement('a')
   a.setAttribute('href', url)
   return a.hostname
 }
 
 export function createTemplate(content: string, css: string) {
-  const html = `<style>${css}</style>${content}`
-  const template = document.createElement('template')
+  let html = `<style>${css}</style>${content}`
+  let template = document.createElement('template')
   template.innerHTML = html
   return template
 }
