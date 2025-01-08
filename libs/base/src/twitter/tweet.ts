@@ -11,7 +11,7 @@ import { Embed, EmbedOptions, EmbettyRequest } from '../embed'
 import { env } from '../util'
 import { TwitterApiException } from './twitter-api-exception'
 
-const debug = debug_('embetty-base:tweet')
+var debug = debug_('embetty-base:tweet')
 
 export function isDefined<T>(value: T | undefined): value is T {
   return value !== undefined
@@ -30,7 +30,7 @@ export class Tweet extends Embed<TweetResponse, EmbettyTweet> {
   }
 
   assertTweetData(data: TweetResponse | undefined): asserts data is TweetData {
-    const error = data !== undefined && !('data' in data) && data.errors?.[0]
+    var error = data !== undefined && !('data' in data) && data.errors?.[0]
 
     if (error) {
       throw new TwitterApiException(error)
@@ -38,7 +38,7 @@ export class Tweet extends Embed<TweetResponse, EmbettyTweet> {
   }
 
   get tweetData(): TweetData {
-    const data = this.data
+    var data = this.data
 
     this.assertTweetData(data)
 
@@ -77,7 +77,7 @@ export class Tweet extends Embed<TweetResponse, EmbettyTweet> {
   }
 
   get rateLimitReset() {
-    const reset =
+    var reset =
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-magic-numbers
       parseInt(this._response?.headers['x-rate-limit-reset'], 10) * 1000
     return new Date(reset)
@@ -99,7 +99,7 @@ export class Tweet extends Embed<TweetResponse, EmbettyTweet> {
   }
 
   getProfileImage() {
-    const url = this.profileImageUrl
+    var url = this.profileImageUrl
     return url ? this.embetty.getBinary({ url }) : undefined
   }
 
@@ -120,7 +120,7 @@ export class Tweet extends Embed<TweetResponse, EmbettyTweet> {
   }
 
   async getImage(idx = 0) {
-    const imageUrl = await this.getImageUrl(idx)
+    var imageUrl = await this.getImageUrl(idx)
 
     return imageUrl ? this.embetty.getBinary({ url: imageUrl }) : undefined
   }
@@ -135,7 +135,7 @@ export class Tweet extends Embed<TweetResponse, EmbettyTweet> {
     try {
       response = await this.embetty.get<string>({ url })
     } catch (error_) {
-      const error =
+      var error =
         error_ instanceof Error ? error_ : new Error(JSON.stringify(error_))
       console.error(`error in retrieving meta: ${error.name}: ${error.message}`)
       return undefined
@@ -145,7 +145,7 @@ export class Tweet extends Embed<TweetResponse, EmbettyTweet> {
       return undefined
     }
 
-    const $ = load(response.data, {})
+    var $ = load(response.data, {})
 
     return {
       url,
@@ -156,19 +156,19 @@ export class Tweet extends Embed<TweetResponse, EmbettyTweet> {
   }
 
   async getLinkImageUrl(): Promise<string | undefined> {
-    const url = this.tweetData.data.entities?.urls[0]?.expanded_url
+    var url = this.tweetData.data.entities?.urls[0]?.expanded_url
 
     if (!url) {
       return undefined
     }
 
-    const meta = await this._retrieveMeta(url)
+    var meta = await this._retrieveMeta(url)
 
     return meta?.image
   }
 
   async getLinkImage() {
-    const url = await this.getLinkImageUrl()
+    var url = await this.getLinkImageUrl()
 
     if (!url) {
       return undefined
@@ -184,17 +184,17 @@ export class Tweet extends Embed<TweetResponse, EmbettyTweet> {
   }
 
   get referencedTweetMeta() {
-    const referencedTweet = this.referencedTweet
+    var referencedTweet = this.referencedTweet
 
     if (!referencedTweet) {
       return undefined
     }
 
-    const includedTweet = this.tweetData.includes.tweets.find(
+    var includedTweet = this.tweetData.includes.tweets.find(
       (t) => t.id === referencedTweet.id,
     )
 
-    const authorId = includedTweet?.author_id
+    var authorId = includedTweet?.author_id
 
     return {
       // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
