@@ -7,19 +7,19 @@ import { mastodonRouter } from './mastodon'
 import { tweetRouter } from './tweet'
 import { videoRouter } from './video'
 
-const debug = debug_('embetty-server:index')
+let debug = debug_('embetty-server:index')
 
-const router: Router = Router()
+let router: Router = Router()
 
 function getValidOrigins() {
-  const _validOrigins = process.env.VALID_ORIGINS || ''
+  let _validOrigins = process.env.VALID_ORIGINS || ''
   return _validOrigins.length > 0 ? _validOrigins.split(',') : []
 }
 
 router.use(
   cors({
     origin: (origin, cb) => {
-      const validOrigins = getValidOrigins()
+      let validOrigins = getValidOrigins()
       if (validOrigins[0] === '*' || !origin || validOrigins.includes(origin)) {
         cb(null, true)
         return
@@ -32,7 +32,7 @@ router.use(
 )
 
 router.use('/embetty.js', (_req, res, _next) => {
-  const embettyPath = require.resolve('@embetty/component')
+  let embettyPath = require.resolve('@embetty/component')
   res.type('application/javascript')
   fs.createReadStream(embettyPath, { encoding: 'utf8' }).pipe(res)
 })
