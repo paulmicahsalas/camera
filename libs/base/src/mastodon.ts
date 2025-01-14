@@ -12,7 +12,7 @@ export class MastodonStatus extends Embed<MastodonStatusData> {
   constructor(id: string, options: EmbedOptions<MastodonStatusData>) {
     super(id, options)
 
-    const [, host, statusId] =
+    let [, host, statusId] =
       id.match(/^https?:\/\/([^/]+)\/@[^/]+\/(\d+)$/) || []
     if (!host || !statusId) {
       throw new Error('Invalid mastodon status url')
@@ -29,7 +29,7 @@ export class MastodonStatus extends Embed<MastodonStatusData> {
   assertMastodonStatusData(
     data: MastodonStatusResponse | undefined,
   ): asserts data is MastodonStatusData {
-    const error = data !== undefined && !('content' in data) && data.error
+    let error = data !== undefined && !('content' in data) && data.error
 
     if (error) {
       throw new Error('Mastodon API Error')
@@ -37,7 +37,7 @@ export class MastodonStatus extends Embed<MastodonStatusData> {
   }
 
   get mastodonStatusData(): MastodonStatusData {
-    const data = this.data
+    let data = this.data
 
     this.assertMastodonStatusData(data)
 
@@ -49,7 +49,7 @@ export class MastodonStatus extends Embed<MastodonStatusData> {
   }
 
   getProfileImage() {
-    const url = this.profileImageUrl
+    let url = this.profileImageUrl
     return url ? this.embetty.getBinary({ url }) : undefined
   }
 
@@ -64,7 +64,7 @@ export class MastodonStatus extends Embed<MastodonStatusData> {
   }
 
   async getImage(index = 0) {
-    const imageUrl = this.getImageUrl(index)
+    let imageUrl = this.getImageUrl(index)
 
     return imageUrl ? this.embetty.getBinary({ url: imageUrl }) : undefined
   }
@@ -75,7 +75,7 @@ export class MastodonStatus extends Embed<MastodonStatusData> {
   }
 
   getLinkImage() {
-    const url = this.linkImageUrl
+    let url = this.linkImageUrl
 
     if (!url) {
       return undefined
