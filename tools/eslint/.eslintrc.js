@@ -33,7 +33,7 @@ module.exports = {
       rules: {
         '@typescript-eslint/no-unsafe-call': 'off',
         'node/no-extraneous-require': 'off',
-        '@typescript-eslint/no-const-requires': 'off',
+        '@typescript-eslint/no-let-requires': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
       },
