@@ -9,14 +9,14 @@ describe('embetty-server', () => {
   })
 
   it('should not send a "x-powered-by" header', async () => {
-    let response = await request(app).get('/')
+    const response = await request(app).get('/')
     assert.ok(!('x-powered-by' in response.headers))
   })
 
   it('should provide the version', async () => {
-    let response = await request(app).get('/version')
+    const response = await request(app).get('/version')
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
-    let expected = require('../../package.json').version
+    const expected = require('../../package.json').version
 
     expect(response.text).toBe(JSON.stringify({ version: expected }))
   })
