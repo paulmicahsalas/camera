@@ -1,4 +1,4 @@
-let {
+const {
   author,
   contributors,
   homepage,
@@ -7,14 +7,14 @@ let {
   title,
   version,
 } = require('./package.json')
-let ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
-let BundleAnalyzerPlugin =
+const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-let path = require('path')
-let webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
 
-let devMode = process.env.NODE_ENV !== 'production'
+const devMode = process.env.NODE_ENV !== 'production'
 
 /**
  * @type {webpack.Configuration}
