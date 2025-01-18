@@ -1,3 +1,3 @@
 import { Embetty } from '@embetty/base'
 
-export const embetty = new Embetty()
+export let embetty = new Embetty()
