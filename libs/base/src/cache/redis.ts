@@ -10,7 +10,7 @@ export class Redis implements EmbettyCache {
   }
 
   async get<T>(key: string): Promise<CacheEntry<T> | undefined> {
-    const response = await this.#redis.getBuffer(key)
+    let response = await this.#redis.getBuffer(key)
 
     if (!response) {
       return undefined
@@ -20,7 +20,7 @@ export class Redis implements EmbettyCache {
   }
 
   async set(entry: CacheEntry): Promise<void> {
-    const value = serialize(entry)
+    let value = serialize(entry)
 
     await this.#redis.set(entry.key, value)
   }
