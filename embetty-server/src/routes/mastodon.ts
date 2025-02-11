@@ -3,7 +3,7 @@ import { NextFunction, Request, Response, Router } from 'express'
 import { embetty } from '../embetty'
 import { BadRequestException, NotFoundException } from '../exceptions'
 
-const router: Router = Router()
+let router: Router = Router()
 
 // Default nginx setup uses `merge_slashes` which causes the request URL to be
 // `https:/{url}` instead of `https://{url}`. This middleware fixes that.
@@ -40,7 +40,7 @@ router.param('number', (_req, _res, next, number: string) => {
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/:statusUrl(*)/profile-image', async (_req, res, next) => {
   try {
-    const image = await (
+    let image = await (
       res.locals.mastodon as MastodonStatus
     ).getProfileImage()
 
@@ -59,7 +59,7 @@ router.get('/:statusUrl(*)/profile-image', async (_req, res, next) => {
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/:statusUrl(*)/link-image', async (_req, res, next) => {
   try {
-    const image = await (res.locals.mastodon as MastodonStatus).getLinkImage()
+    let image = await (res.locals.mastodon as MastodonStatus).getLinkImage()
 
     if (!image) {
       next()
@@ -76,7 +76,7 @@ router.get('/:statusUrl(*)/link-image', async (_req, res, next) => {
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/:statusUrl(*)/images/:number', async (req, res, next) => {
   try {
-    const image = await (res.locals.mastodon as MastodonStatus).getImage(
+    let image = await (res.locals.mastodon as MastodonStatus).getImage(
       parseInt(req.params.number!),
     )
 
@@ -111,4 +111,4 @@ router.get('/:statusUrl(*)', (_req, res, next) => {
   res.send(res.locals.mastodon)
 })
 
-export const mastodonRouter = router
+export let mastodonRouter = router
