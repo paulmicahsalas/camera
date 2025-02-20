@@ -3,9 +3,9 @@ import debug_ from 'debug'
 import { CacheEntry } from './cache/cache'
 import { Embetty } from './embetty'
 
-let debug = debug_('embetty-base:embed')
+const debug = debug_('embetty-base:embed')
 
-let DEFAULT_REQUEST_TIMEOUT = 2000
+const DEFAULT_REQUEST_TIMEOUT = 2000
 
 export interface EmbedOptions<T> {
   embetty: Embetty<T>
