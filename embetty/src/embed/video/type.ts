@@ -1,7 +1,7 @@
 import Video from '../video'
 
-const DEFAULT_WIDTH = 1600
-const DEFAULT_HEIGHT = 900
+let DEFAULT_WIDTH = 1600
+let DEFAULT_HEIGHT = 900
 
 export default abstract class VideoImplementation<T> {
   element: Video<T>
@@ -12,12 +12,12 @@ export default abstract class VideoImplementation<T> {
   }
 
   get width(): number {
-    const width = this.element.getAttribute('width')
+    let width = this.element.getAttribute('width')
     return width ? parseInt(width) : DEFAULT_WIDTH
   }
 
   get height() {
-    const height = this.element.getAttribute('height')
+    let height = this.element.getAttribute('height')
     return height ? parseInt(height) : DEFAULT_HEIGHT
   }
 
