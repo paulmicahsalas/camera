@@ -3,7 +3,7 @@ import { Router } from 'express'
 import { embetty } from '../embetty'
 import { BadRequestException, NotFoundException } from '../exceptions'
 
-let router: Router = Router()
+const router: Router = Router()
 
 router.param('id', async (_req, res, next, id: string) => {
   try {
@@ -35,7 +35,7 @@ router.param('number', (_req, _res, next, number: string) => {
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/:id/profile-image', async (_req, res, next) => {
   try {
-    let image = await (res.locals.tweet as Tweet).getProfileImage()
+    const image = await (res.locals.tweet as Tweet).getProfileImage()
 
     if (!image) {
       next()
@@ -52,7 +52,7 @@ router.get('/:id/profile-image', async (_req, res, next) => {
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/:id/link-image', async (_req, res, next) => {
   try {
-    let image = await (res.locals.tweet as Tweet).getLinkImage()
+    const image = await (res.locals.tweet as Tweet).getLinkImage()
 
     if (!image) {
       next()
@@ -69,7 +69,7 @@ router.get('/:id/link-image', async (_req, res, next) => {
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/:id/images/:number', async (req, res, next) => {
   try {
-    let image = await (res.locals.tweet as Tweet).getImage(
+    const image = await (res.locals.tweet as Tweet).getImage(
       parseInt(req.params.number),
     )
 
@@ -102,4 +102,4 @@ router.get('/:id', (_req, res, next) => {
   res.send(res.locals.tweet)
 })
 
-export let tweetRouter = router
+export const tweetRouter = router
