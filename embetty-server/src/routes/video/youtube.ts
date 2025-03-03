@@ -3,7 +3,7 @@ import { Router } from 'express'
 import { embetty } from '../../embetty'
 import { BadRequestException } from '../../exceptions'
 
-let router: Router = Router()
+const router: Router = Router()
 
 router.param('id', async (_req, res, next, id: string) => {
   try {
@@ -23,7 +23,7 @@ router.param('id', async (_req, res, next, id: string) => {
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/:id-poster-image', async (_req, res, next) => {
   try {
-    let image = await (res.locals.video as YoutubeVideo).getPosterImage()
+    const image = await (res.locals.video as YoutubeVideo).getPosterImage()
 
     if (!image) {
       next()
@@ -38,7 +38,7 @@ router.get('/:id-poster-image', async (_req, res, next) => {
 })
 
 router.get('/:id.amp', (req, res) => {
-  let attributes = { ...req.query }
+  const attributes = { ...req.query }
 
   res.render('video.html', {
     video: res.locals.video as YoutubeVideo,
@@ -50,4 +50,4 @@ router.get('/:id', (_req, res) => {
   res.send(res.locals.video)
 })
 
-export let youtubeRouter = router
+export const youtubeRouter = router
