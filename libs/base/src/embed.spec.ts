@@ -12,7 +12,7 @@ class MyEmbed extends Embed<unknown> {
 }
 
 describe(`${Embed.name}`, () => {
-  const embetty: jest.Mocked<Embetty<unknown>>
+  let embetty: jest.Mocked<Embetty<unknown>>
 
   beforeEach(() => {
     embetty = new Embetty() as jest.Mocked<Embetty<unknown>>
