@@ -3,7 +3,7 @@ import { Router } from 'express'
 import { embetty } from '../../embetty'
 import { BadRequestException } from '../../exceptions'
 
-const router: Router = Router()
+let router: Router = Router()
 
 router.param('id', async (_req, res, next, id: string) => {
   try {
@@ -26,4 +26,4 @@ router.get('/:id', (_req, res) => {
   res.send(res.locals.video)
 })
 
-export const facebookRouter = router
+export let facebookRouter = router
