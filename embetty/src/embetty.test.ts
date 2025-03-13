@@ -22,7 +22,7 @@ class EmbettyTest extends Embed<unknown> {
 
 describe('Embetty', () => {
   it('should set the API url', async () => {
-    let { element } = await createElement<EmbettyTest>('embetty-test', {
+    const { element } = await createElement<EmbettyTest>('embetty-test', {
       'server-url': '/foo',
     })
     expect(element.serverUrl).toBe('/foo')
@@ -30,11 +30,11 @@ describe('Embetty', () => {
   })
 
   it('should use meta[data-embetty-server] as API url fallback', async () => {
-    let meta = document.createElement('meta')
+    const meta = document.createElement('meta')
     meta.dataset.embettyServer = '/embetty-server'
     document.head.append(meta)
 
-    let { element } = await createElement<EmbettyTest>('embetty-test')
+    const { element } = await createElement<EmbettyTest>('embetty-test')
     expect(element.serverUrl).toBe('/embetty-server')
     expect(element.someApiUrl).toBe('/embetty-server/some-url')
 
