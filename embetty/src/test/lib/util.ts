@@ -13,14 +13,14 @@ export function createElement<T extends HTMLElement>(
   query: (...args: Parameters<typeof document.querySelector>) => T
 }> {
   return new Promise((resolve) => {
-    const wrapper = document.createElement('div')
-    const htmlAttrs = Object.keys(attrs)
+    let wrapper = document.createElement('div')
+    let htmlAttrs = Object.keys(attrs)
       .map((attr) => `${attr}="${attrs[attr]}"`)
       .join(' ')
 
     wrapper.innerHTML = `<${tag} ${htmlAttrs}></${tag}>`
 
-    const element = wrapper.firstElementChild as T
+    let element = wrapper.firstElementChild as T
 
     document.body.append(element)
 
@@ -29,7 +29,7 @@ export function createElement<T extends HTMLElement>(
     element.becomesVisible()
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const query = element.shadowRoot!.querySelector.bind(element.shadowRoot)
+    let query = element.shadowRoot!.querySelector.bind(element.shadowRoot)
     resolve({ element, query })
   })
 }
@@ -38,7 +38,7 @@ export function createTweet(status: string, attrs = {}) {
   return createElement<Tweet>('embetty-tweet', { status, ...attrs })
 }
 
-export const createVideo = (videoId: string, type: string, attrs = {}) => {
+export let createVideo = (videoId: string, type: string, attrs = {}) => {
   return createElement<Video<unknown>>('embetty-video', {
     ...attrs,
     'video-id': videoId,
@@ -46,13 +46,13 @@ export const createVideo = (videoId: string, type: string, attrs = {}) => {
   })
 }
 
-export const createYoutubeVideo = (videoId: string, attrs = {}) =>
+export let createYoutubeVideo = (videoId: string, attrs = {}) =>
   createVideo(videoId, 'youtube', attrs)
 
-export const createVimeoVideo = (videoId: string, attrs = {}) =>
+export let createVimeoVideo = (videoId: string, attrs = {}) =>
   createVideo(videoId, 'vimeo', attrs)
 
-export const createFacebookVideo = (videoId: string, attrs = {}) =>
+export let createFacebookVideo = (videoId: string, attrs = {}) =>
   createVideo(videoId, 'facebook', attrs)
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -62,9 +62,9 @@ window.fetch = jest.fn(() =>
   Promise.resolve({ json: () => Promise.resolve({}) }),
 )
 
-const fetchSpy = jest.spyOn(window, 'fetch')
+let fetchSpy = jest.spyOn(window, 'fetch')
 export async function getFetchSpy(status: string) {
-  const json = await readJson(join(__dirname, `../responses/${status}.json`))
+  let json = await readJson(join(__dirname, `../responses/${status}.json`))
   return fetchSpy.mockReturnValue({
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
