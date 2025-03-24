@@ -5,7 +5,7 @@ export class LRU implements EmbettyCache {
   #cache: LRUCache<string, CacheEntry>
 
   constructor(dsn: string) {
-    let options = LRU.parse(dsn)
+    const options = LRU.parse(dsn)
     options
 
     // this.#cache = new LRUCache(options as any)
@@ -21,8 +21,8 @@ export class LRU implements EmbettyCache {
   }
 
   static parse(string: string) {
-    let options = {}
-    let lruPattern = /^lru:\/\//
+    const options = {}
+    const lruPattern = /^lru:\/\//
 
     if (!lruPattern.test(string)) {
       return options
@@ -33,7 +33,7 @@ export class LRU implements EmbettyCache {
       .split(',')
       .filter((e) => e.length > 0)
       .forEach((option) => {
-        let [key, value] = option.split(':')
+        const [key, value] = option.split(':')
         if (key) {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
