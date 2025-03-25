@@ -14,7 +14,7 @@ import { Tweet } from './twitter/tweet'
 import { VimeoVideo, VimeoVideoData } from './vimeo-video'
 import { YoutubeVideo, YoutubeVideoData } from './youtube-video'
 
-let debug = debug_('embetty-base:embetty')
+const debug = debug_('embetty-base:embetty')
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ClassOf<T> = new (...args: any[]) => T
@@ -42,7 +42,7 @@ export class Embetty<T> {
   }
 
   async getBinary<T>(options: AxiosRequestConfig) {
-    let response = await this.get<T>({
+    const response = await this.get<T>({
       ...options,
       responseType: 'arraybuffer',
     })
@@ -62,7 +62,7 @@ export class Embetty<T> {
     id: string,
     options = {},
   ): Promise<T> {
-    let embed = new Class(id, {
+    const embed = new Class(id, {
       embetty: this,
       ...options,
     })
@@ -106,10 +106,10 @@ export class Embetty<T> {
   }
 
   static createCache(): EmbettyCache {
-    let dsn = process.env.EMBETTY_CACHE || 'lru://max:100'
-    let wantedEngine = dsn.match(/(\w+):\/\//)?.[1]
+    const dsn = process.env.EMBETTY_CACHE || 'lru://max:100'
+    const wantedEngine = dsn.match(/(\w+):\/\//)?.[1]
 
-    let Engine = Object.keys(Embetty.cacheEngines)
+    const Engine = Object.keys(Embetty.cacheEngines)
       .filter((name) => name.toLowerCase() === wantedEngine)
       .map((name) => Embetty.cacheEngines[name])[0]
 
