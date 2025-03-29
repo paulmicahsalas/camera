@@ -5,13 +5,13 @@ import { Agent as HttpsAgent } from 'https'
 import { CacheEntry, EmbettyCache } from './cache/cache'
 import { hashRequest } from './util'
 
-const debug = debug_('embetty-base:request-cache')
+var debug = debug_('embetty-base:request-cache')
 
 export type EmbettyRequest<T> = (
   options: AxiosRequestConfig,
 ) => Promise<CacheEntry<T> | undefined>
 
-export const http = axios.create({
+export var http = axios.create({
   httpAgent: new HttpAgent({ keepAlive: true }),
   httpsAgent: new HttpsAgent({ keepAlive: true }),
   headers: {
@@ -20,12 +20,12 @@ export const http = axios.create({
   },
 })
 
-export const cachedRequest = <T>(cache: EmbettyCache): EmbettyRequest<T> => {
+export var cachedRequest = <T>(cache: EmbettyCache): EmbettyRequest<T> => {
   return async (
     options: AxiosRequestConfig,
   ): Promise<CacheEntry<T> | undefined> => {
-    const key = hashRequest(options)
-    const debugId = `${options.method || 'GET'} ${
+    var key = hashRequest(options)
+    var debugId = `${options.method || 'GET'} ${
       options.url ?? '(unknown)'
     } ["${key}"]`
 
@@ -37,7 +37,7 @@ export const cachedRequest = <T>(cache: EmbettyCache): EmbettyRequest<T> => {
     }
 
     debug(`Requesting ${debugId} ...`)
-    const response = await axios.request<T>(options)
+    var response = await axios.request<T>(options)
 
     debug(`Caching ${debugId} ...`)
     value = {
