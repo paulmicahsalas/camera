@@ -4,7 +4,7 @@ import assert from 'assert'
 import request from 'supertest'
 import { app } from '../app'
 
-const Tweets = {
+let Tweets = {
   s200: '934029337019416579',
   s404: '999999999999999999999999999999999999999999999999',
   s400: 'abc',
@@ -27,17 +27,17 @@ describe('Tweet', () => {
   })
 
   it.skip('/tweet/:id.amp => 200', async () => {
-    const response = await request(app)
+    let response = await request(app)
       .get(`/tweet/${Tweets.s200}.amp`)
       .expect('Content-Type', /html/)
       .expect(200)
-    const expected =
+    let expected =
       '<embetty-tweet status="934029337019416579"></embetty-tweet>'
     assert.ok(response.text.includes(expected))
   })
 
   it.skip('/tweet/:id => 200', async () => {
-    const response = await request(app)
+    let response = await request(app)
       .get(`/tweet/${Tweets.s200}`)
       .expect('Content-Type', /json/)
       .expect(200)
@@ -54,13 +54,13 @@ describe('Tweet', () => {
   })
 
   it.skip('/tweet/:id-profile-image => 200', async () => {
-    const response = await request(app)
+    let response = await request(app)
       .get(`/tweet/${Tweets.s200}-profile-image`)
       .expect('Content-Type', /png|jpg|jpeg/)
       .expect(200)
 
     assert.ok(Buffer.isBuffer(response.body))
-    const imageLength = Buffer.byteLength(response.body)
+    let imageLength = Buffer.byteLength(response.body)
     assert.ok(imageLength > 100)
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     assert.strictEqual(response.headers['content-length'], `${imageLength}`)
@@ -75,26 +75,26 @@ describe('Tweet', () => {
   })
 
   it.skip('/tweet/:id-images-:number => 200', async () => {
-    const response = await request(app)
+    let response = await request(app)
       .get(`/tweet/${Tweets.s200}-images-0`)
       .expect('Content-Type', /jpeg/)
       .expect(200)
 
     assert.ok(Buffer.isBuffer(response.body))
-    const imageLength = Buffer.byteLength(response.body)
+    let imageLength = Buffer.byteLength(response.body)
     assert.ok(imageLength > 100)
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     assert.strictEqual(response.headers['content-length'], `${imageLength}`)
   })
 
   it.skip('/tweet/:id-link-image => 200', async () => {
-    const response = await request(app)
+    let response = await request(app)
       .get('/tweet/934386458852495360-link-image')
       .expect('Content-Type', /jpeg/)
       .expect(200)
 
     assert.ok(Buffer.isBuffer(response.body))
-    const imageLength = Buffer.byteLength(response.body)
+    let imageLength = Buffer.byteLength(response.body)
     assert.ok(imageLength > 100)
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     assert.strictEqual(response.headers['content-length'], `${imageLength}`)
