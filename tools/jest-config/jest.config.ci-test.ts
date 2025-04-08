@@ -5,9 +5,9 @@ import findPackages, { Project } from '@pnpm/find-workspace-packages'
 import { defaults } from 'jest-config'
 import path from 'path'
 
-let workspaceRoot = path.join(__dirname, '../..')
+const workspaceRoot = path.join(__dirname, '../..')
 
-export let createDefaultJestConfig = (
+export const createDefaultJestConfig = (
   pkg: Project,
 ): Config.InitialProjectOptions => ({
   rootDir: pkg.dir,
@@ -43,14 +43,14 @@ export let createDefaultJestConfig = (
   },
 })
 
-let config: () => Promise<Config.InitialOptions> = async () => {
-  let packages = await findPackages(workspaceRoot)
+const config: () => Promise<Config.InitialOptions> = async () => {
+  const packages = await findPackages(workspaceRoot)
 
-  let projects: Config.InitialProjectOptions[] = packages
+  const projects: Config.InitialProjectOptions[] = packages
     .filter((pkg) => pkg.manifest.name !== '@embetty/monorepo')
     .map((pkg) => createDefaultJestConfig(pkg))
 
-  let config: Config.InitialOptions = {
+  const config: Config.InitialOptions = {
     coveragePathIgnorePatterns: [
       ...defaults.coveragePathIgnorePatterns,
       'libs/testing',
