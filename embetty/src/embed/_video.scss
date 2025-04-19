@@ -1,0 +1,86 @@
+@import '../element';
+@import 'powered-by';
+
+:host {
+  width: 100%;
+  position: relative;
+  background-color: #333;
+
+  #poster {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      display: block;
+      padding-top: calc(100/16*9 * 1%);
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  #playbutton {  // id hardcoded in video.js
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    opacity: 0.9;
+    background: none;
+    cursor: pointer;
+    transition: opacity 150ms;
+  }
+
+  .video-playbutton {
+    min-width: 3.75rem;
+    width: 13%;
+    max-width: 6rem;
+    transition: transform 300ms ease-out;
+    will-change: transform;
+
+    &:hover {
+      transform: scale(1.07);
+    }
+  }
+
+  #playicon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 0px;
+    height: 0;
+    overflow: hidden;
+  }
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #powered-by {
+    -webkit-font-smoothing: antialiased;
+
+    color: #fff;
+    opacity: .6;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

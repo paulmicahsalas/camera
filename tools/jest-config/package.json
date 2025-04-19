@@ -1,0 +1,18 @@
+{
+  "name": "@embetty/jest-config",
+  "version": "1.0.3",
+  "description": "",
+  "main": "jest.config.ts",
+  "private": true,
+  "devDependencies": {
+    "@embetty/tsconfig": "workspace:*",
+    "@jest/types": "^29.6.3",
+    "jest-config": "^29.7.0"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@pnpm/logger": "^5.2.0",
+    "@pnpm/workspace.find-packages": "^1.1.12",
+    "tslib": "^2.7.0"
+  }
+}
